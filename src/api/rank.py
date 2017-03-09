@@ -17,4 +17,5 @@ def rank():
     item = hacker_news.get_item(newest)
     response = natural_language.analyze_text(item.get_text())
     natural_language.persist_analysis(item, response)
+    highest_seen.set_highest_seen(newest)
     return newest
