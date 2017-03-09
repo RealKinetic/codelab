@@ -37,9 +37,10 @@ update msg model =
         GetGithub ->
             model ! [ Api.doGetGithub ]
 
-        GetGithubComplete (Err _) ->
+        GetGithubComplete (Err err) ->
             let
-                _ = Debug.crash "error getting github"
+                _ = Debug.log "ERROR" err
+                --_ = Debug.crash "error getting github" err
             in
                 model ! []
 

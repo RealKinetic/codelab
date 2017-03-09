@@ -18,9 +18,9 @@ type alias Result =
 rowResponseDecoder : Decoder Row
 rowResponseDecoder =
     decode Row
-        |> required "repo" string
-        |> required "language" string
-        |> required "bytes" int
+        |> optional "repo" string ""
+        |> optional "language" string ""
+        |> optional "bytes" int 0
 
 
 getRowsResponseDecoder : Decoder Result
