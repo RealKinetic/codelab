@@ -3,6 +3,7 @@ module Api exposing (..)
 import Http
 import Json.Decode as JD
 
+import Aggregated
 import BigQuery
 import Message exposing (Msg(..))
 
@@ -32,3 +33,15 @@ getGithub =
 doGetGithub : Cmd Msg
 doGetGithub =
     Http.send GetGithubComplete getGithub
+
+getAggregatedUrl : String
+getAggregatedUrl =
+    getGithubUrl ++ "/aggregated"
+
+getAggregated : Http.Request Aggregated.Result
+getAggregated =
+    Http.get getAggregatedUrl Aggregated.resultResponseDecoder
+
+doGetAggregated : Cmd Msg
+doGetAggregated =
+    Http.send GetAggregatedComplete getAggregated

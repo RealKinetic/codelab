@@ -11305,6 +11305,30 @@ var _elm_lang$navigation$Navigation$onEffects = F4(
 	});
 _elm_lang$core$Native_Platform.effectManagers['Navigation'] = {pkg: 'elm-lang/navigation', init: _elm_lang$navigation$Navigation$init, onEffects: _elm_lang$navigation$Navigation$onEffects, onSelfMsg: _elm_lang$navigation$Navigation$onSelfMsg, tag: 'fx', cmdMap: _elm_lang$navigation$Navigation$cmdMap, subMap: _elm_lang$navigation$Navigation$subMap};
 
+var _user$project$Aggregated$Row = F2(
+	function (a, b) {
+		return {language: a, totalBytes: b};
+	});
+var _user$project$Aggregated$rowDecoder = A4(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+	'total_bytes',
+	_elm_lang$core$Json_Decode$int,
+	0,
+	A4(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+		'language',
+		_elm_lang$core$Json_Decode$string,
+		'',
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Aggregated$Row)));
+var _user$project$Aggregated$Result = function (a) {
+	return {result: a};
+};
+var _user$project$Aggregated$resultResponseDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'result',
+	_elm_lang$core$Json_Decode$list(_user$project$Aggregated$rowDecoder),
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Aggregated$Result));
+
 var _user$project$BigQuery$Row = F3(
 	function (a, b, c) {
 		return {repo: a, language: b, bytes: c};
@@ -11334,6 +11358,11 @@ var _user$project$BigQuery$getRowsResponseDecoder = A3(
 	_elm_lang$core$Json_Decode$list(_user$project$BigQuery$rowResponseDecoder),
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$BigQuery$Result));
 
+var _user$project$Routes$Aggregated = {ctor: 'Aggregated'};
+var _user$project$Routes$aggregated = A2(
+	_Bogdanp$elm_route$Route_ops[':='],
+	_user$project$Routes$Aggregated,
+	_Bogdanp$elm_route$Route$static('aggregated'));
 var _user$project$Routes$NotFound = {ctor: 'NotFound'};
 var _user$project$Routes$MySQL = {ctor: 'MySQL'};
 var _user$project$Routes$mysql = A2(
@@ -11352,7 +11381,11 @@ var _user$project$Routes$sitemap = _Bogdanp$elm_route$Route$router(
 		_1: {
 			ctor: '::',
 			_0: _user$project$Routes$mysql,
-			_1: {ctor: '[]'}
+			_1: {
+				ctor: '::',
+				_0: _user$project$Routes$aggregated,
+				_1: {ctor: '[]'}
+			}
 		}
 	});
 var _user$project$Routes$match = function (_p0) {
@@ -11384,12 +11417,17 @@ var _user$project$Routes$toString = function (r) {
 					_Bogdanp$elm_route$Route$reverse,
 					_user$project$Routes$mysql,
 					{ctor: '[]'});
+			case 'Aggregated':
+				return A2(
+					_Bogdanp$elm_route$Route$reverse,
+					_user$project$Routes$aggregated,
+					{ctor: '[]'});
 			default:
 				return _elm_lang$core$Native_Utils.crashCase(
 					'Routes',
 					{
-						start: {line: 36, column: 13},
-						end: {line: 42, column: 57}
+						start: {line: 40, column: 13},
+						end: {line: 48, column: 57}
 					},
 					_p2)('cannot render notfound');
 		}
@@ -11401,6 +11439,10 @@ var _user$project$Routes$navigateTo = function (_p4) {
 		_user$project$Routes$toString(_p4));
 };
 
+var _user$project$Message$GetAggregatedComplete = function (a) {
+	return {ctor: 'GetAggregatedComplete', _0: a};
+};
+var _user$project$Message$GetAggregated = {ctor: 'GetAggregated'};
 var _user$project$Message$GetGithubComplete = function (a) {
 	return {ctor: 'GetGithubComplete', _0: a};
 };
@@ -11419,6 +11461,9 @@ var _user$project$Message$RouteChanged = function (a) {
 var _user$project$Api$getGithubUrl = '/big_query/languages';
 var _user$project$Api$getGithub = A2(_elm_lang$http$Http$get, _user$project$Api$getGithubUrl, _user$project$BigQuery$getRowsResponseDecoder);
 var _user$project$Api$doGetGithub = A2(_elm_lang$http$Http$send, _user$project$Message$GetGithubComplete, _user$project$Api$getGithub);
+var _user$project$Api$getAggregatedUrl = A2(_elm_lang$core$Basics_ops['++'], _user$project$Api$getGithubUrl, '/aggregated');
+var _user$project$Api$getAggregated = A2(_elm_lang$http$Http$get, _user$project$Api$getAggregatedUrl, _user$project$Aggregated$resultResponseDecoder);
+var _user$project$Api$doGetAggregated = A2(_elm_lang$http$Http$send, _user$project$Message$GetAggregatedComplete, _user$project$Api$getAggregated);
 var _user$project$Api$getRankUrl = '/rank';
 var _user$project$Api$getRank = A2(_elm_lang$http$Http$get, _user$project$Api$getRankUrl, _elm_lang$core$Json_Decode$int);
 var _user$project$Api$doGetRank = A2(_elm_lang$http$Http$send, _user$project$Message$GetRankComplete, _user$project$Api$getRank);
@@ -11428,16 +11473,17 @@ var _user$project$Model$init = A2(
 	{
 		route: _user$project$Routes$Home,
 		highestRank: 0,
-		githubRows: {ctor: '[]'}
+		githubRows: {ctor: '[]'},
+		aggregatedRows: {ctor: '[]'}
 	},
 	{
 		ctor: '::',
 		_0: _elm_lang$core$Platform_Cmd$none,
 		_1: {ctor: '[]'}
 	});
-var _user$project$Model$Model = F3(
-	function (a, b, c) {
-		return {route: a, highestRank: b, githubRows: c};
+var _user$project$Model$Model = F4(
+	function (a, b, c, d) {
+		return {route: a, highestRank: b, githubRows: c, aggregatedRows: d};
 	});
 
 var _user$project$Update$handleRoute = F2(
@@ -11503,7 +11549,7 @@ var _user$project$Update$update = F2(
 						_0: _user$project$Api$doGetGithub,
 						_1: {ctor: '[]'}
 					});
-			default:
+			case 'GetGithubComplete':
 				if (_p0._0.ctor === 'Err') {
 					var _p2 = A2(_elm_lang$core$Debug$log, 'ERROR', _p0._0._0);
 					return A2(
@@ -11518,9 +11564,137 @@ var _user$project$Update$update = F2(
 							{githubRows: _p0._0._0.result}),
 						{ctor: '[]'});
 				}
+			case 'GetAggregated':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{
+						ctor: '::',
+						_0: _user$project$Api$doGetAggregated,
+						_1: {ctor: '[]'}
+					});
+			default:
+				if (_p0._0.ctor === 'Err') {
+					var _p3 = A2(_elm_lang$core$Debug$log, 'ERROR', _p0._0._0);
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						model,
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{aggregatedRows: _p0._0._0.result}),
+						{ctor: '[]'});
+				}
 		}
 	});
 
+var _user$project$View$mapToAggregated = function (row) {
+	return A2(
+		_elm_lang$html$Html$tr,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$td,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(row.language),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$td,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(row.totalBytes)),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$View$aggregated = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$button,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(_user$project$Message$GetAggregated),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Get Github Aggregated Results'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('table table-bordered table-hover'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$thead,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$tr,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$th,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('language'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$th,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('total bytes'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$tbody,
+								{ctor: '[]'},
+								A2(_elm_lang$core$List$map, _user$project$View$mapToAggregated, model.aggregatedRows)),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
 var _user$project$View$mapToRow = function (row) {
 	return A2(
 		_elm_lang$html$Html$tr,
@@ -11576,7 +11750,7 @@ var _user$project$View$mysql = function (model) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('Get Github Aggregated Results'),
+					_0: _elm_lang$html$Html$text('Get Github Results'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -11703,6 +11877,8 @@ var _user$project$View$content = function (model) {
 				return _user$project$View$home(model);
 			case 'MySQL':
 				return _user$project$View$mysql(model);
+			case 'Aggregated':
+				return _user$project$View$aggregated(model);
 			default:
 				return _user$project$View$home(model);
 		}
@@ -11828,7 +12004,18 @@ var _user$project$View$nav = function (model) {
 									_0: A4(_user$project$View$link, _user$project$Routes$MySQL, 'fa fw-fw fa-table', 'Bigquery', false),
 									_1: {ctor: '[]'}
 								}),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$li,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: A4(_user$project$View$link, _user$project$Routes$Aggregated, 'fa fa-fw fa-dashboard', 'Aggregated', false),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
 						}
 					}),
 				_1: {ctor: '[]'}

@@ -5,6 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events
 import Json.Decode as JD
 
+import Aggregated
 import BigQuery
 import Message exposing (Msg(..))
 import Model exposing (Model)
@@ -37,6 +38,7 @@ nav model =
         , Html.ul [ class "nav navbar-nav side-nav" ]
             [ Html.li [] [ link Home "fa fa-fw fa-desktop" "Rank" False ]
             , Html.li [] [ link MySQL "fa fw-fw fa-table" "Bigquery" False ]
+            , Html.li [] [ link Aggregated "fa fa-fw fa-dashboard" "Aggregated" False ]
             ]
         ]
 
@@ -65,11 +67,31 @@ mapToRow row =
 mysql : Model -> Html Msg
 mysql model =
     Html.div []
-        [ Html.button [ Html.Events.onClick GetGithub ] [ Html.text "Get Github Aggregated Results" ]
+        [ Html.button [ Html.Events.onClick GetGithub ] [ Html.text "Get Github Results" ]
         , Html.div [ class "table table-bordered table-hover" ]
             [ Html.thead [] [ Html.tr [] [Html.th [] [Html.text "repo"], Html.th [] [Html.text "language"], Html.th [] [Html.text "bytes"] ] ]
             , Html.tbody []
                 (List.map mapToRow model.githubRows)
+            ]
+        ]
+
+
+mapToAggregated : Aggregated.Row -> Html Msg
+mapToAggregated row =
+    Html.tr []
+        [ Html.td [] [ Html.text row.language ]
+        , Html.td [] [ Html.text (Basics.toString row.totalBytes) ]
+        ]
+
+
+aggregated : Model -> Html Msg
+aggregated model =
+    Html.div []
+        [ Html.button [ Html.Events.onClick GetAggregated ] [ Html.text "Get Github Aggregated Results" ]
+        , Html.div [ class "table table-bordered table-hover" ]
+            [ Html.thead [] [ Html.tr [] [Html.th [] [Html.text "language"], Html.th [] [Html.text "total bytes"] ] ]
+            , Html.tbody []
+                (List.map mapToAggregated model.aggregatedRows)
             ]
         ]
 
@@ -83,6 +105,8 @@ content model =
                     home model
                 MySQL ->
                     mysql model
+                Aggregated ->
+                    aggregated model
                 NotFound ->
                     home model
     in
