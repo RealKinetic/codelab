@@ -21,7 +21,7 @@ class BigQueryLanguages(Resource):
         try:
             appname = _get_app_name("rk-playground")
             result = bq_api.get_languages(appname, DATASET, limit=50)
-            return result
+            return { 'result': result }
         except Exception as e:
             print 'E!: {}'.format(e)
 
@@ -35,7 +35,7 @@ class BigQueryAggLanguages(Resource):
             appname = _get_app_name("rk-playground")
 
             result = bq_api.get_languaes_aggregated(appname, DATASET, limit=50)
-            return result
+            return { 'result': result }
         except Exception as e:
             print 'E!: {}'.format(e)
 

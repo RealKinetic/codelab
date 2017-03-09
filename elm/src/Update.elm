@@ -1,5 +1,6 @@
 module Update exposing (..)
 
+import Api
 import Message exposing (Msg(..))
 import Model exposing (Model)
 import Routes exposing (navigateTo, Sitemap)
@@ -20,3 +21,27 @@ update msg model =
 
         RouteTo route ->
             model ! [ navigateTo route ]
+
+        GetRankComplete (Err _) ->
+            let
+                _ = Debug.crash "error getting rank"
+            in
+                model ! []
+
+        GetRankComplete (Ok response) ->
+            { model | highestRank = response } ! []
+
+        GetRank ->
+            model ! [ Api.doGetRank ]
+
+        GetGithub ->
+            model ! [ Api.doGetGithub ]
+
+        GetGithubComplete (Err _) ->
+            let
+                _ = Debug.crash "error getting github"
+            in
+                model ! []
+
+        GetGithubComplete (Ok response) ->
+            { model | githubRows = response.result } ! []

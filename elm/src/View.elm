@@ -34,20 +34,29 @@ nav model =
             [ Html.span [ class "navbar-brand" ] [ Html.text "Codelab" ]
             ]
         , Html.ul [ class "nav navbar-nav side-nav" ]
-            [ Html.li [] [ link Home "fa fa-fw fa-desktop" "Home" False ]
-            , Html.li [] [ link MySQL "fa fw-fw fa-table" "Cloud SQL" False ]
+            [ Html.li [] [ link Home "fa fa-fw fa-desktop" "Rank" False ]
+            , Html.li [] [ link MySQL "fa fw-fw fa-table" "Bigquery" False ]
             ]
         ]
 
 
 home : Model -> Html Msg
 home model =
-    Html.div [] [ Html.text "HOME" ]
+    Html.div []
+        [ Html.button [ Html.Events.onClick GetRank ] [ Html.text "Get Rank" ]
+        , Html.div [ class "panel panel-default" ]
+            [ Html.div [ class "panel-body" ]
+                [ Html.text (Basics.toString model.highestRank)
+                ]
+            ]
+        ]
 
 
 mysql : Model -> Html Msg
 mysql model =
-    Html.div [] [ Html.text "Cloud SQL" ]
+    Html.div []
+        [ Html.button [ Html.Events.onClick GetGithub ] [ Html.text "Get Github Aggregated Results" ]
+        ]
 
 
 content : Model -> Html Msg
