@@ -2,6 +2,7 @@ module Message exposing (..)
 
 import Http
 
+import Aggregated
 import BigQuery
 import Routes exposing (Sitemap)
 
@@ -13,3 +14,5 @@ type Msg
     | GetRank
     | GetGithub
     | GetGithubComplete (Result Http.Error BigQuery.Result)
+    | GetAggregated
+    | GetAggregatedComplete (Result Http.Error Aggregated.Result)

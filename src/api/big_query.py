@@ -33,7 +33,7 @@ def get_languaes_aggregated(project, dataset, limit=LIMIT):
 
     results = []
     for res in irun(project, dataset, q):
-        results.append(res)
+        results.append({"language": res[0], "total_bytes": res[1]})
 
     return results
 

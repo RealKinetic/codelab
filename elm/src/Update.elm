@@ -46,3 +46,15 @@ update msg model =
 
         GetGithubComplete (Ok response) ->
             { model | githubRows = response.result } ! []
+
+        GetAggregated ->
+            model ! [ Api.doGetAggregated ]
+
+        GetAggregatedComplete (Err err) ->
+            let
+                _ = Debug.log "ERROR" err
+            in
+                model ! []
+
+        GetAggregatedComplete (Ok response) ->
+            { model | aggregatedRows = response.result } ! []
