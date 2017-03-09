@@ -5,6 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events
 import Json.Decode as JD
 
+import BigQuery
 import Message exposing (Msg(..))
 import Model exposing (Model)
 import Routes exposing (..)
@@ -34,20 +35,43 @@ nav model =
             [ Html.span [ class "navbar-brand" ] [ Html.text "Codelab" ]
             ]
         , Html.ul [ class "nav navbar-nav side-nav" ]
-            [ Html.li [] [ link Home "fa fa-fw fa-desktop" "Home" False ]
-            , Html.li [] [ link MySQL "fa fw-fw fa-table" "Cloud SQL" False ]
+            [ Html.li [] [ link Home "fa fa-fw fa-desktop" "Rank" False ]
+            , Html.li [] [ link MySQL "fa fw-fw fa-table" "Bigquery" False ]
             ]
         ]
 
 
 home : Model -> Html Msg
 home model =
-    Html.div [] [ Html.text "HOME" ]
+    Html.div []
+        [ Html.button [ Html.Events.onClick GetRank ] [ Html.text "Get Rank" ]
+        , Html.div [ class "panel panel-default" ]
+            [ Html.div [ class "panel-body" ]
+                [ Html.text (Basics.toString model.highestRank)
+                ]
+            ]
+        ]
+
+
+mapToRow : BigQuery.Row -> Html Msg
+mapToRow row =
+    Html.tr []
+        [ Html.td [] [ Html.text row.repo ]
+        , Html.td [] [ Html.text row.language ]
+        , Html.td [] [ Html.text (Basics.toString row.bytes) ]
+        ]
 
 
 mysql : Model -> Html Msg
 mysql model =
-    Html.div [] [ Html.text "Cloud SQL" ]
+    Html.div []
+        [ Html.button [ Html.Events.onClick GetGithub ] [ Html.text "Get Github Aggregated Results" ]
+        , Html.div [ class "table table-bordered table-hover" ]
+            [ Html.thead [] [ Html.tr [] [Html.th [] [Html.text "repo"], Html.th [] [Html.text "language"], Html.th [] [Html.text "bytes"] ] ]
+            , Html.tbody []
+                (List.map mapToRow model.githubRows)
+            ]
+        ]
 
 
 content : Model -> Html Msg
