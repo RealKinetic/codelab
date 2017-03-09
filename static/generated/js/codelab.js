@@ -11474,18 +11474,25 @@ var _user$project$Model$init = A2(
 		route: _user$project$Routes$Home,
 		highestRank: 0,
 		githubRows: {ctor: '[]'},
-		aggregatedRows: {ctor: '[]'}
+		aggregatedRows: {ctor: '[]'},
+		loading: false
 	},
 	{
 		ctor: '::',
 		_0: _elm_lang$core$Platform_Cmd$none,
 		_1: {ctor: '[]'}
 	});
-var _user$project$Model$Model = F4(
-	function (a, b, c, d) {
-		return {route: a, highestRank: b, githubRows: c, aggregatedRows: d};
+var _user$project$Model$Model = F5(
+	function (a, b, c, d, e) {
+		return {route: a, highestRank: b, githubRows: c, aggregatedRows: d, loading: e};
 	});
 
+var _user$project$Update$setLoading = F2(
+	function (loading, model) {
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{loading: loading});
+	});
 var _user$project$Update$handleRoute = F2(
 	function (route, m) {
 		var model = _elm_lang$core$Native_Utils.update(
@@ -11521,20 +11528,23 @@ var _user$project$Update$update = F2(
 						})('error getting rank');
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						model,
+						A2(_user$project$Update$setLoading, false, model),
 						{ctor: '[]'});
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						_elm_lang$core$Native_Utils.update(
-							model,
-							{highestRank: _p0._0._0}),
+						A2(
+							_user$project$Update$setLoading,
+							false,
+							_elm_lang$core$Native_Utils.update(
+								model,
+								{highestRank: _p0._0._0})),
 						{ctor: '[]'});
 				}
 			case 'GetRank':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
+					A2(_user$project$Update$setLoading, true, model),
 					{
 						ctor: '::',
 						_0: _user$project$Api$doGetRank,
@@ -11543,7 +11553,7 @@ var _user$project$Update$update = F2(
 			case 'GetGithub':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
+					A2(_user$project$Update$setLoading, true, model),
 					{
 						ctor: '::',
 						_0: _user$project$Api$doGetGithub,
@@ -11554,20 +11564,23 @@ var _user$project$Update$update = F2(
 					var _p2 = A2(_elm_lang$core$Debug$log, 'ERROR', _p0._0._0);
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						model,
+						A2(_user$project$Update$setLoading, false, model),
 						{ctor: '[]'});
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						_elm_lang$core$Native_Utils.update(
-							model,
-							{githubRows: _p0._0._0.result}),
+						A2(
+							_user$project$Update$setLoading,
+							false,
+							_elm_lang$core$Native_Utils.update(
+								model,
+								{githubRows: _p0._0._0.result})),
 						{ctor: '[]'});
 				}
 			case 'GetAggregated':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
-					model,
+					A2(_user$project$Update$setLoading, true, model),
 					{
 						ctor: '::',
 						_0: _user$project$Api$doGetAggregated,
@@ -11578,14 +11591,17 @@ var _user$project$Update$update = F2(
 					var _p3 = A2(_elm_lang$core$Debug$log, 'ERROR', _p0._0._0);
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						model,
+						A2(_user$project$Update$setLoading, false, model),
 						{ctor: '[]'});
 				} else {
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
-						_elm_lang$core$Native_Utils.update(
-							model,
-							{aggregatedRows: _p0._0._0.result}),
+						A2(
+							_user$project$Update$setLoading,
+							false,
+							_elm_lang$core$Native_Utils.update(
+								model,
+								{aggregatedRows: _p0._0._0.result})),
 						{ctor: '[]'});
 				}
 		}
@@ -11943,6 +11959,104 @@ var _user$project$View$link = F4(
 			});
 	});
 var _user$project$View$nav = function (model) {
+	var children = model.loading ? {
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$li,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A4(_user$project$View$link, _user$project$Routes$Home, 'fa fa-fw fa-desktop', 'Rank', false),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$li,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A4(_user$project$View$link, _user$project$Routes$MySQL, 'fa fw-fw fa-table', 'Bigquery', false),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$li,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A4(_user$project$View$link, _user$project$Routes$Aggregated, 'fa fa-fw fa-dashboard', 'Aggregated', false),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$li,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$span,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$style(
+										{
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '20px'},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'color', _1: 'white'},
+												_1: {ctor: '[]'}
+											}
+										}),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('LOADING'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	} : {
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$li,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A4(_user$project$View$link, _user$project$Routes$Home, 'fa fa-fw fa-desktop', 'Rank', false),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$li,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A4(_user$project$View$link, _user$project$Routes$MySQL, 'fa fw-fw fa-table', 'Bigquery', false),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$li,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A4(_user$project$View$link, _user$project$Routes$Aggregated, 'fa fa-fw fa-dashboard', 'Aggregated', false),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		}
+	};
 	return A2(
 		_elm_lang$html$Html$nav,
 		{
@@ -11984,40 +12098,7 @@ var _user$project$View$nav = function (model) {
 						_0: _elm_lang$html$Html_Attributes$class('nav navbar-nav side-nav'),
 						_1: {ctor: '[]'}
 					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$li,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: A4(_user$project$View$link, _user$project$Routes$Home, 'fa fa-fw fa-desktop', 'Rank', false),
-								_1: {ctor: '[]'}
-							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$li,
-								{ctor: '[]'},
-								{
-									ctor: '::',
-									_0: A4(_user$project$View$link, _user$project$Routes$MySQL, 'fa fw-fw fa-table', 'Bigquery', false),
-									_1: {ctor: '[]'}
-								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$li,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: A4(_user$project$View$link, _user$project$Routes$Aggregated, 'fa fa-fw fa-dashboard', 'Aggregated', false),
-										_1: {ctor: '[]'}
-									}),
-								_1: {ctor: '[]'}
-							}
-						}
-					}),
+					children),
 				_1: {ctor: '[]'}
 			}
 		});
