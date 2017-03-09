@@ -1,7 +1,8 @@
 from googleapiclient import discovery
 
 from . import get_google_credentials
-
+from . import session
+from src.model import Word
 
 _client = None
 
@@ -9,7 +10,7 @@ _client = None
 class Entity(object):
     def __init__(self, response):
         self.type_ = response.get('type')
-        self.saliance = response.get('saliance')
+        self.salience = response.get('salience')
         self.name = response.get('name')
 
 
@@ -53,3 +54,23 @@ def analyze_text(text, encoding='UTF8'):
     request = client.documents().analyzeEntities(body=body)
     response = request.execute()
     return Response(response)
+
+
+def persist_analysis(item, response):
+    """Persists item and response data to a datasource for further analysis.
+
+    :param item: hacker news item information
+    :type item: src.api.hacker_news.Item
+    :param response: natural language response
+    :type response: Response
+    """
+    s = session()
+    for entity in response.entities:
+        word = Word()
+        word.item_id = item.id
+        word.salience = entity.salience
+        word.word = entity.name
+        word.type_ = entity.type_
+        s.add(word)
+
+    s.commit()

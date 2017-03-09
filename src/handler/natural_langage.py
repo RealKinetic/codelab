@@ -9,7 +9,6 @@ class NaturalLanguage(Resource):
     def get(self):
         try:
             response = nl_api.analyze_text('nine inch nails is the best band ever')
-            print 'response: {}'.format(response.__dict__)
             dumped = json.dumps(response)
             return dumped
         except Exception as e:
