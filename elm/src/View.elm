@@ -29,18 +29,29 @@ link route icon label expandable =
 
 nav : Model -> Html Msg
 nav model =
-    Html.nav
-        [ class "navbar navbar-inverse navbar-fixed-top"
-        ]
-        [ Html.div [ class "navbar-header" ]
-            [ Html.span [ class "navbar-brand" ] [ Html.text "Codelab" ]
+    let
+        children =
+            if model.loading then
+                [ Html.li [] [ link Home "fa fa-fw fa-desktop" "Rank" False ]
+                , Html.li [] [ link MySQL "fa fw-fw fa-table" "Bigquery" False ]
+                , Html.li [] [ link Aggregated "fa fa-fw fa-dashboard" "Aggregated" False ]
+                , Html.li [] [ Html.span [ style [("margin-left", "20px"), ("color", "white")] ] [Html.text "LOADING"] ]
+                ]
+            else
+                [ Html.li [] [ link Home "fa fa-fw fa-desktop" "Rank" False ]
+                , Html.li [] [ link MySQL "fa fw-fw fa-table" "Bigquery" False ]
+                , Html.li [] [ link Aggregated "fa fa-fw fa-dashboard" "Aggregated" False ]
+                ]
+    in
+        Html.nav
+            [ class "navbar navbar-inverse navbar-fixed-top"
             ]
-        , Html.ul [ class "nav navbar-nav side-nav" ]
-            [ Html.li [] [ link Home "fa fa-fw fa-desktop" "Rank" False ]
-            , Html.li [] [ link MySQL "fa fw-fw fa-table" "Bigquery" False ]
-            , Html.li [] [ link Aggregated "fa fa-fw fa-dashboard" "Aggregated" False ]
+            [ Html.div [ class "navbar-header" ]
+                [ Html.span [ class "navbar-brand" ] [ Html.text "Codelab" ]
+                ]
+            , Html.ul [ class "nav navbar-nav side-nav" ]
+                children
             ]
-        ]
 
 
 home : Model -> Html Msg

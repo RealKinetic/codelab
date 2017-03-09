@@ -11,6 +11,7 @@ type alias Model =
     , highestRank : Int
     , githubRows : List BigQuery.Row
     , aggregatedRows : List Aggregated.Row
+    , loading : Bool
     }
 
 init : ( Model, Cmd Msg )
@@ -19,4 +20,5 @@ init =
     , highestRank = 0
     , githubRows = []
     , aggregatedRows = []
+    , loading = False
     } ! [ Cmd.none ]

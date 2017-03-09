@@ -26,35 +26,40 @@ update msg model =
             let
                 _ = Debug.crash "error getting rank"
             in
-                model ! []
+                setLoading False model ! []
 
         GetRankComplete (Ok response) ->
-            { model | highestRank = response } ! []
+            setLoading False { model | highestRank = response } ! []
 
         GetRank ->
-            model ! [ Api.doGetRank ]
+            setLoading True model ! [ Api.doGetRank ]
 
         GetGithub ->
-            model ! [ Api.doGetGithub ]
+            setLoading True model ! [ Api.doGetGithub ]
 
         GetGithubComplete (Err err) ->
             let
                 _ = Debug.log "ERROR" err
                 --_ = Debug.crash "error getting github" err
             in
-                model ! []
+                setLoading False model ! []
 
         GetGithubComplete (Ok response) ->
-            { model | githubRows = response.result } ! []
+            setLoading False { model | githubRows = response.result } ! []
 
         GetAggregated ->
-            model ! [ Api.doGetAggregated ]
+            setLoading True model ! [ Api.doGetAggregated ]
 
         GetAggregatedComplete (Err err) ->
             let
                 _ = Debug.log "ERROR" err
             in
-                model ! []
+                setLoading False model ! []
 
         GetAggregatedComplete (Ok response) ->
-            { model | aggregatedRows = response.result } ! []
+            setLoading False { model | aggregatedRows = response.result } ! []
+
+
+setLoading : Bool -> Model -> Model
+setLoading loading model =
+    { model | loading = loading }
