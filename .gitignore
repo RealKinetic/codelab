@@ -92,6 +92,7 @@ ENV/
 .idea/
 
 # elm artifacts
-static/generated
 elm-stuff
 build
+
+vendor
