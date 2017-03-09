@@ -1,4 +1,4 @@
 DSN = (
-    'mysql+mysqldb://root@/codelab?unix_socket=/cloudsql/'
-    'rk-playground:us-central1:codelab'
+    'mysql+mysqldb://USER_NAME:PASSWORD@/DATABASE_NAME?unix_socket=/cloudsql/'
+    'PROJECT_ID:REGION:DATABASE_NAME'
 )
