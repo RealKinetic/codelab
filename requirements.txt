@@ -1,4 +1,7 @@
 Flask
 flask-restful
+google-api-python-client
 mysql-python
+# required otherwise google-api-python-client is broken with `no module named pwd`
+oauth2client==2.2.0
 SQLAlchemy

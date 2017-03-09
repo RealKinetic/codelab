@@ -1,3 +1,4 @@
+from oauth2client.client import GoogleCredentials
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -20,3 +21,8 @@ def session():
         Base.metadata.create_all(_engine)
 
     return _sessionfactory()
+
+
+def get_google_credentials():
+    # returns service account if deployed to appspot
+    return GoogleCredentials.get_application_default()
