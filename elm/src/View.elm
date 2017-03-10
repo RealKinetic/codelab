@@ -7,6 +7,7 @@ import Json.Decode as JD
 
 import Aggregated
 import BigQuery
+import HackerNews
 import Message exposing (Msg(..))
 import Model exposing (Model)
 import Routes exposing (..)
@@ -35,12 +36,14 @@ nav model =
                 [ Html.li [] [ link Home "fa fa-fw fa-desktop" "Rank" False ]
                 , Html.li [] [ link MySQL "fa fw-fw fa-table" "Bigquery" False ]
                 , Html.li [] [ link Aggregated "fa fa-fw fa-dashboard" "Aggregated" False ]
+                , Html.li [] [ link HackerNews "fa fa-fw fa-wrench" "HackerNews" False ]
                 , Html.li [] [ Html.span [ style [("margin-left", "20px"), ("color", "white")] ] [Html.text "LOADING"] ]
                 ]
             else
                 [ Html.li [] [ link Home "fa fa-fw fa-desktop" "Rank" False ]
                 , Html.li [] [ link MySQL "fa fw-fw fa-table" "Bigquery" False ]
                 , Html.li [] [ link Aggregated "fa fa-fw fa-dashboard" "Aggregated" False ]
+                , Html.li [] [ link HackerNews "fa fa-fw fa-wrench" "HackerNews Avg" False ]
                 ]
     in
         Html.nav
@@ -107,6 +110,26 @@ aggregated model =
         ]
 
 
+mapToHackerNews : HackerNews.Row -> Html Msg
+mapToHackerNews row =
+    Html.tr []
+        [ Html.td [] [ Html.text row.word ]
+        , Html.td [] [ Html.text (Basics.toString row.average) ]
+        ]
+
+
+hackernews : Model -> Html Msg
+hackernews model =
+    Html.div []
+        [ Html.button [ Html.Events.onClick GetHackerNews ] [ Html.text "Get HackerNews Ranks" ]
+        , Html.div [ class "table table-bordered table-hover" ]
+            [ Html.thead [] [ Html.tr [] [Html.th [] [Html.text "word"], Html.th [] [Html.text "average"] ] ]
+            , Html.tbody []
+                (List.map mapToHackerNews model.hackerRows)
+            ]
+        ]
+
+
 content : Model -> Html Msg
 content model =
     let
@@ -118,6 +141,8 @@ content model =
                     mysql model
                 Aggregated ->
                     aggregated model
+                HackerNews ->
+                    hackernews model
                 NotFound ->
                     home model
     in

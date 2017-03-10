@@ -1,6 +1,8 @@
+from sqlalchemy import func
+
 from . import session
 
-from src.model import HighestSeen
+from src.model import HighestSeen, Word
 
 
 def get_highest_seen():
@@ -31,3 +33,17 @@ def set_highest_seen(highest_seen):
     s = session()
     s.add(h)
     s.commit()
+
+
+def get_average():
+    """Retrieves salience grouped by words.
+
+    :return:
+    """
+    s = session()
+    h = s.query(Word.word, func.avg(Word.salience)).group_by(Word.word).all()
+    s.commit()
+
+    result = [{'word': res[0], 'average': res[1]} for res in h]
+
+    return result

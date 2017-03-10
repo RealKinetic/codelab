@@ -59,6 +59,18 @@ update msg model =
         GetAggregatedComplete (Ok response) ->
             setLoading False { model | aggregatedRows = response.result } ! []
 
+        GetHackerNews ->
+            setLoading True model ! [ Api.doGetHackerNews ]
+
+        GetHackerNewsComplete (Err err) ->
+            let
+                _ = Debug.log "ERROR" err
+            in
+                setLoading False model ! []
+
+        GetHackerNewsComplete (Ok response) ->
+            setLoading False { model | hackerRows = response.result } ! []
+
 
 setLoading : Bool -> Model -> Model
 setLoading loading model =
