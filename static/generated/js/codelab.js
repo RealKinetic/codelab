@@ -11358,6 +11358,35 @@ var _user$project$BigQuery$getRowsResponseDecoder = A3(
 	_elm_lang$core$Json_Decode$list(_user$project$BigQuery$rowResponseDecoder),
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$BigQuery$Result));
 
+var _user$project$HackerNews$Row = F2(
+	function (a, b) {
+		return {word: a, average: b};
+	});
+var _user$project$HackerNews$rowResponseDecoder = A4(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+	'average',
+	_elm_lang$core$Json_Decode$float,
+	0.0,
+	A4(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+		'word',
+		_elm_lang$core$Json_Decode$string,
+		'',
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$HackerNews$Row)));
+var _user$project$HackerNews$Result = function (a) {
+	return {result: a};
+};
+var _user$project$HackerNews$getRowsResponseDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'result',
+	_elm_lang$core$Json_Decode$list(_user$project$HackerNews$rowResponseDecoder),
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$HackerNews$Result));
+
+var _user$project$Routes$HackerNews = {ctor: 'HackerNews'};
+var _user$project$Routes$hackernews = A2(
+	_Bogdanp$elm_route$Route_ops[':='],
+	_user$project$Routes$HackerNews,
+	_Bogdanp$elm_route$Route$static('hackernews'));
 var _user$project$Routes$Aggregated = {ctor: 'Aggregated'};
 var _user$project$Routes$aggregated = A2(
 	_Bogdanp$elm_route$Route_ops[':='],
@@ -11384,7 +11413,11 @@ var _user$project$Routes$sitemap = _Bogdanp$elm_route$Route$router(
 			_1: {
 				ctor: '::',
 				_0: _user$project$Routes$aggregated,
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: _user$project$Routes$hackernews,
+					_1: {ctor: '[]'}
+				}
 			}
 		}
 	});
@@ -11422,12 +11455,17 @@ var _user$project$Routes$toString = function (r) {
 					_Bogdanp$elm_route$Route$reverse,
 					_user$project$Routes$aggregated,
 					{ctor: '[]'});
+			case 'HackerNews':
+				return A2(
+					_Bogdanp$elm_route$Route$reverse,
+					_user$project$Routes$hackernews,
+					{ctor: '[]'});
 			default:
 				return _elm_lang$core$Native_Utils.crashCase(
 					'Routes',
 					{
-						start: {line: 40, column: 13},
-						end: {line: 48, column: 57}
+						start: {line: 44, column: 13},
+						end: {line: 54, column: 57}
 					},
 					_p2)('cannot render notfound');
 		}
@@ -11439,6 +11477,10 @@ var _user$project$Routes$navigateTo = function (_p4) {
 		_user$project$Routes$toString(_p4));
 };
 
+var _user$project$Message$GetHackerNewsComplete = function (a) {
+	return {ctor: 'GetHackerNewsComplete', _0: a};
+};
+var _user$project$Message$GetHackerNews = {ctor: 'GetHackerNews'};
 var _user$project$Message$GetAggregatedComplete = function (a) {
 	return {ctor: 'GetAggregatedComplete', _0: a};
 };
@@ -11458,6 +11500,9 @@ var _user$project$Message$RouteChanged = function (a) {
 	return {ctor: 'RouteChanged', _0: a};
 };
 
+var _user$project$Api$getHackerNewsUrl = '/highest_seen';
+var _user$project$Api$getHackerNews = A2(_elm_lang$http$Http$get, _user$project$Api$getHackerNewsUrl, _user$project$HackerNews$getRowsResponseDecoder);
+var _user$project$Api$doGetHackerNews = A2(_elm_lang$http$Http$send, _user$project$Message$GetHackerNewsComplete, _user$project$Api$getHackerNews);
 var _user$project$Api$getGithubUrl = '/big_query/languages';
 var _user$project$Api$getGithub = A2(_elm_lang$http$Http$get, _user$project$Api$getGithubUrl, _user$project$BigQuery$getRowsResponseDecoder);
 var _user$project$Api$doGetGithub = A2(_elm_lang$http$Http$send, _user$project$Message$GetGithubComplete, _user$project$Api$getGithub);
@@ -11475,16 +11520,17 @@ var _user$project$Model$init = A2(
 		highestRank: 0,
 		githubRows: {ctor: '[]'},
 		aggregatedRows: {ctor: '[]'},
-		loading: false
+		loading: false,
+		hackerRows: {ctor: '[]'}
 	},
 	{
 		ctor: '::',
 		_0: _elm_lang$core$Platform_Cmd$none,
 		_1: {ctor: '[]'}
 	});
-var _user$project$Model$Model = F5(
-	function (a, b, c, d, e) {
-		return {route: a, highestRank: b, githubRows: c, aggregatedRows: d, loading: e};
+var _user$project$Model$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {route: a, highestRank: b, githubRows: c, aggregatedRows: d, loading: e, hackerRows: f};
 	});
 
 var _user$project$Update$setLoading = F2(
@@ -11586,7 +11632,7 @@ var _user$project$Update$update = F2(
 						_0: _user$project$Api$doGetAggregated,
 						_1: {ctor: '[]'}
 					});
-			default:
+			case 'GetAggregatedComplete':
 				if (_p0._0.ctor === 'Err') {
 					var _p3 = A2(_elm_lang$core$Debug$log, 'ERROR', _p0._0._0);
 					return A2(
@@ -11604,9 +11650,140 @@ var _user$project$Update$update = F2(
 								{aggregatedRows: _p0._0._0.result})),
 						{ctor: '[]'});
 				}
+			case 'GetHackerNews':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					A2(_user$project$Update$setLoading, true, model),
+					{
+						ctor: '::',
+						_0: _user$project$Api$doGetHackerNews,
+						_1: {ctor: '[]'}
+					});
+			default:
+				if (_p0._0.ctor === 'Err') {
+					var _p4 = A2(_elm_lang$core$Debug$log, 'ERROR', _p0._0._0);
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A2(_user$project$Update$setLoading, false, model),
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						A2(
+							_user$project$Update$setLoading,
+							false,
+							_elm_lang$core$Native_Utils.update(
+								model,
+								{hackerRows: _p0._0._0.result})),
+						{ctor: '[]'});
+				}
 		}
 	});
 
+var _user$project$View$mapToHackerNews = function (row) {
+	return A2(
+		_elm_lang$html$Html$tr,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$td,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(row.word),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$td,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(row.average)),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$View$hackernews = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$button,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(_user$project$Message$GetHackerNews),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Get HackerNews Ranks'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('table table-bordered table-hover'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$thead,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$tr,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$th,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('word'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$th,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('average'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$tbody,
+								{ctor: '[]'},
+								A2(_elm_lang$core$List$map, _user$project$View$mapToHackerNews, model.hackerRows)),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
 var _user$project$View$mapToAggregated = function (row) {
 	return A2(
 		_elm_lang$html$Html$tr,
@@ -11895,6 +12072,8 @@ var _user$project$View$content = function (model) {
 				return _user$project$View$mysql(model);
 			case 'Aggregated':
 				return _user$project$View$aggregated(model);
+			case 'HackerNews':
+				return _user$project$View$hackernews(model);
 			default:
 				return _user$project$View$home(model);
 		}
@@ -11996,30 +12175,41 @@ var _user$project$View$nav = function (model) {
 						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$span,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$style(
-										{
-											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '20px'},
-											_1: {
-												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: 'color', _1: 'white'},
-												_1: {ctor: '[]'}
-											}
-										}),
-									_1: {ctor: '[]'}
-								},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text('LOADING'),
-									_1: {ctor: '[]'}
-								}),
+							_0: A4(_user$project$View$link, _user$project$Routes$HackerNews, 'fa fa-fw fa-wrench', 'HackerNews', false),
 							_1: {ctor: '[]'}
 						}),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$li,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$span,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$style(
+											{
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'margin-left', _1: '20px'},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'color', _1: 'white'},
+													_1: {ctor: '[]'}
+												}
+											}),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('LOADING'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
 				}
 			}
 		}
@@ -12053,7 +12243,18 @@ var _user$project$View$nav = function (model) {
 						_0: A4(_user$project$View$link, _user$project$Routes$Aggregated, 'fa fa-fw fa-dashboard', 'Aggregated', false),
 						_1: {ctor: '[]'}
 					}),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$li,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A4(_user$project$View$link, _user$project$Routes$HackerNews, 'fa fa-fw fa-wrench', 'HackerNews Avg', false),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
 			}
 		}
 	};

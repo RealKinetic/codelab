@@ -11,6 +11,7 @@ type Sitemap
     | MySQL
     | NotFound
     | Aggregated
+    | HackerNews
 
 
 home =
@@ -23,9 +24,12 @@ mysql =
 aggregated =
     Aggregated := static "aggregated"
 
+hackernews =
+    HackerNews := static "hackernews"
+
 
 sitemap =
-    router [ home, mysql, aggregated ]
+    router [ home, mysql, aggregated, hackernews ]
 
 
 match : String -> Sitemap
@@ -44,6 +48,8 @@ toString r =
                     reverse mysql []
                 Aggregated ->
                     reverse aggregated []
+                HackerNews ->
+                    reverse hackernews []
                 NotFound ->
                     Debug.crash "cannot render notfound"
     in

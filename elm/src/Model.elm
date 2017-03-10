@@ -2,6 +2,7 @@ module Model exposing (..)
 
 import Aggregated
 import BigQuery
+import HackerNews
 import Message exposing (Msg)
 import Routes exposing (Sitemap(..))
 
@@ -12,6 +13,7 @@ type alias Model =
     , githubRows : List BigQuery.Row
     , aggregatedRows : List Aggregated.Row
     , loading : Bool
+    , hackerRows : List HackerNews.Row
     }
 
 init : ( Model, Cmd Msg )
@@ -21,4 +23,5 @@ init =
     , githubRows = []
     , aggregatedRows = []
     , loading = False
+    , hackerRows = []
     } ! [ Cmd.none ]

@@ -4,6 +4,7 @@ import Http
 
 import Aggregated
 import BigQuery
+import HackerNews
 import Routes exposing (Sitemap)
 
 
@@ -16,3 +17,5 @@ type Msg
     | GetGithubComplete (Result Http.Error BigQuery.Result)
     | GetAggregated
     | GetAggregatedComplete (Result Http.Error Aggregated.Result)
+    | GetHackerNews
+    | GetHackerNewsComplete (Result Http.Error HackerNews.Result)
