@@ -68,6 +68,25 @@ In `src/config/envs/deployed.py` update the config options for your mysql databa
 - Replace PASSWORD with your mysql user's password
 - Replace DATABASE_NAME with your mysql database name
 - Replace PROJECT_ID with your google cloud project id
+- Replace REGION with the region your SQL instance is running in
+
+So what was:
+
+``` py
+DSN = (
+    'mysql+mysqldb://USER_NAME:PASSWORD@/DATABASE_NAME?unix_socket=/cloudsql/'
+    'PROJECT_ID:REGION:DATABASE_NAME'
+)
+```
+
+Should now look something like:
+
+``` py
+DSN = (
+    'mysql+mysqldb://root:mypwd@/mydb?unix_socket=/cloudsql/'
+    'my_gcp_project_id:us-central1:mydb'
+)
+`
 
 #### Install Dependencies
 
