@@ -1,148 +1,92 @@
 Google Code Lab
 ===============
 
-## Documentation
+## About
 
-### BigQuery
+In this codelab, we will be building an application that combines several GCP
+services to build a fully functioning application. The application we will
+build utilizes [Google App Engine][GAE] for our user traffic and backend
+processing tasks, [Google Cloud SQL][CSQL] for storage, and [Google Cloud
+NL][CNL] for sentiment analysis.
 
-- [Github Data Docs](docs/big_query/github/github.md)
-- [Uploading Wiki Data Codelab Docs](docs/big_query/wiki/wiki.md)
+This codelab builds upon some of [Google's Codelabs][GCL]:
+
+- [Getting Started with App Engine (Python)][GCL.GAE]
+- [Entity and Sentiment Analysis with the Natural Language API][GCL.NL]
+- [Create a Managed MySQL database with Cloud SQL][GCL.SQL]
 
 
-## Setup
+## How to Use this Codelab
 
-### Cloud
+This codelab may be followed along by cloning this repository, then following
+this README. Once you are past [STEP
+2](#step-2-getting-started-with-google-cloud-sql-mysql), if you are struggling
+with a step, step-3 for example, you may checkout the branch named STEP-3.
 
-#### Setup a Google Cloud Project
+This codelab should be completed using the Google Cloud Shell. This is what all
+of the Google provided codelabs recommend using as well. Cloud Shell is
+accessed from the Google Cloud Console, by clicking the button to the right of
+the search box:
 
-- Create a [google account](https://accounts.google.com/SignUp) if you don't have one
-- Sign into the [Google Cloud Console](http://console.cloud.google.com/) (http://console.cloud.google.com/) to create a cloud project
-  - The project name must be unique across all Google projects
-  - You need to [enable billing](https://console.developers.google.com/billing) to utilize all cloud services
-    - Make sure to delete your data and turn down services when not using them
-    - However new users are eligible for a [$300 free trial](https://console.developers.google.com/billing/freetrial?hl=en)
+![Activate Google Cloud Shell](./docs/img/ActiveGoogleCloudShell.png)
 
-### Local
+I recommend working through all exercises in the Google Codelabs, and I suggest
+selecting Novice. Your settings for each codelab should look something like
+this:
 
-#### Install Google Cloud SDK
+![Google Codelab Settings](./docs/img/CodelabSettings.png)
 
-- Download the SDK here: https://cloud.google.com/sdk/downloads
-  - You can follow the directions on that site
-- Add the SDK Tools to your path
-  - OSX
-    $ ./google-cloud-sdk/install.sh
-  - Windows
-    > .\google-cloud-sdk\install.bat
-- Initialize the SDK
-  $ ./google-cloud-sdk/bin/gcloud init
+You may use an existing Cloud Project or create a new Cloud Project for use
+during this codelab. Please note, if you use Qwiklabs your project will be
+reset after each codelab - for this reason I recommend using your own Cloud
+Project.
 
-##### Components
+*NOTE:* This codelab might cost between $1 and $3 in compute resources.
 
-Once you've installed it locally you can see what components you have installed
 
-    $ gcloud components list
+## STEP 0: Getting Started with Google App Engine
 
-#### Install MySQL or MySQL Connector
+We will use [Google App Engine][GAE] to serve user requests, perform backend
+processing, and to host our static resources.
 
-To run local or even install the python mysql package (annoying we know) you need to either have mysql installed on your local machine or the mysql connector.
+Work through Google's [Getting Started with App Engine (Python)][GCL.GAE]
+codelab, then move on to [STEP 1](#step-1-getting-started-with-google-cloud-natural-language-api).
 
-##### MySQL
 
-```sh
-$ brew install mysql
-```
+## STEP 1: Getting Started with Google Cloud Natural Language API
 
-or
+We will use [Google Cloud Natural Language API][CNL] to conduct sentiment
+analysis on entities we fetch from [Hacker News][HN]. In this step, we will
+introduce you to the basics of the APIs.
 
-##### MySQL Connector
+Work through Google's [Entity and Sentiment Analysis with the Natural Language
+API][GCL.NL] codelab, then move on to [STEP 2](#step-2-getting-started-with-google-cloud-sql-mysql).
 
-``` sh
-$ brew install mysql-connector-c
-```
+*NOTE:* Do not forget to enable the Cloud Natural Language API. To do this, under
+API Manager, goto Library, then find Cloud Natural Language and click it. Click
+enable.
 
-##### Configure MySQL
 
-In `src/config/envs/deployed.py` update the config options for your mysql database connection.
+## STEP 2: Getting Started with Google Cloud SQL MySQL
 
-- Replace USER_NAME with your mysql user's login name
-- Replace PASSWORD with your mysql user's password
-- Replace DATABASE_NAME with your mysql database name
-- Replace PROJECT_ID with your google cloud project id
-- Replace REGION with the region your SQL instance is running in
+We will use [Google Cloud SQL][CSQL] to store the results of our sentiment
+analysis.
 
-So what was:
+Work through Google's [Create a Managed MySQL database with Cloud SQL][GCL.SQL]
+codelab, then move on to [STEP 3](#step-3-putting-the-pieces-together).
 
-``` py
-DSN = (
-    'mysql+mysqldb://USER_NAME:PASSWORD@/DATABASE_NAME?unix_socket=/cloudsql/'
-    'PROJECT_ID:REGION:DATABASE_NAME'
-)
-```
+*NOTE:* Select Second Generation when creating your instance.
 
-Should now look something like:
+## STEP 3: Putting the Pieces Together
 
-``` py
-DSN = (
-    'mysql+mysqldb://root:mypwd@/mydb?unix_socket=/cloudsql/'
-    'my_gcp_project_id:us-central1:mydb'
-)
-`
 
-#### Install Dependencies
 
-``` sh
-$ make install
-```
+[GAE]: https://cloud.google.com/appengine/
+[CSQL]: https://cloud.google.com/sql/docs/mysql/
+[CNL]: https://cloud.google.com/natural-language/
+[GCL]: https://codelabs.developers.google.com/cloud?cat=Cloud
+[GCL.GAE]: https://codelabs.developers.google.com/codelabs/cloud-app-engine-python/index.html
+[GCL.NL]: https://codelabs.developers.google.com/codelabs/cloud-nl-intro/index.html
+[GCL.SQL]: https://codelabs.developers.google.com/codelabs/cloud-create-cloud-sql-db/index.html
+[HN]: https://news.ycombinator.com/
 
-#### Web Client Setup
-
-This is optional. We have committed the generated client to the repo under `static/generated`
-
-##### Install Elm
-
-[Directions Here](https://guide.elm-lang.org/install.html)
-
-##### Generate the Client
-
-``` sh
-$ make generate-client
-```
-
-#### Run the server and app
-
-``` sh
-$ make run
-```
-
-#### View App and Endpoints
-
-- Application: [http://localhost:8080/](http://localhost:8080/)
-- Rank: [http://localhost:8080/rank](http://localhost:8080/rank)
-- Natural Language: [http://localhost:8080/natural_language](http://localhost:8080/natural_language)
-- Hacker News: [http://localhost:8080/hacker_news](http://localhost:8080/hacker_news)
-- Highest Seen: [http://localhost:8080/highest_seen](http://localhost:8080/highest_seen)
-- Big Query
-  - Language List: [http://localhost:8080/big_query/languages](http://localhost:8080/big_query/languages)
-  - Aggregated Languages by Bytes: [http://localhost:8080/big_query/languages/aggregated](http://localhost:8080/big_query/languages/aggregated)
-
-## Deply
-
-```sh
-$ gcloud app deploy app.yaml
-```
-
-## Help
-
-If you run into issues running the natural language api locally due to errors like the following:
-```sh
-Encountered 403 Forbidden with reason "forbidden"
-rank exception: <HttpError 403 when requesting https://language.googleapis.com/v1/documents:analyzeEntities?alt=json returned "Google Cloud Natural Language API has not been used in project google.com:cloudsdktool before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/language.googleapis.com/overview?project=google.com:cloudsdktool then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.">
-```
-
-You'll need to do two things:
-```sh
-$ gcloud config set project <your-project-id>
-$ gcloud auth application-default login
-```
-
-This will force you to authenticate using the sdk and should work locally.
