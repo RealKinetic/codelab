@@ -19,6 +19,8 @@ Codelabs](https://codelabs.developers.google.com/cloud?cat=Cloud):
 - [Create a Managed MySQL database with Cloud
   SQL](https://codelabs.developers.google.com/codelabs/cloud-create-cloud-sql-db/index.html)
 
+## How to Use this Codelab
+
 This codelab may be followed along by cloning this repository, then following
 this README. If you are struggling with a step, step-2 for example, you may
 checkout the branch named STEP-2.
