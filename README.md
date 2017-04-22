@@ -41,7 +41,7 @@ during this codelab. Please note, if you use Qwiklabs your project will be
 reset after each codelab - for this reason I recommend using your own Cloud
 Project.
 
-NOTE: This codelab might cost between $1 and $3 in compute resources.
+*NOTE:* This codelab might cost between $1 and $3 in compute resources.
 
 
 ## STEP 0: Getting Started with Google App Engine
@@ -62,7 +62,7 @@ introduce you to the basics of the APIs.
 Work through Google's [Entity and Sentiment Analysis with the Natural Language
 API][GCL.NL] codelab, then move on to [STEP 2](#step-2-getting-started-with-google-cloud-sql-mysql).
 
-NOTE: Do not forget to enable the Cloud Natural Language API. To do this, under
+*NOTE:* Do not forget to enable the Cloud Natural Language API. To do this, under
 API Manager, goto Library, then find Cloud Natural Language and click it. Click
 enable.
 
@@ -75,7 +75,7 @@ analysis.
 Work through Google's [Create a Managed MySQL database with Cloud SQL][GCL.SQL]
 codelab, then move on to [STEP 3](#step-3-putting-the-pieces-together).
 
-NOTE: Select Second Generation when creating your instance.
+*NOTE:* Select Second Generation when creating your instance.
 
 ## STEP 3: Putting the Pieces Together
 
