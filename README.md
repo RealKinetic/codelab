@@ -15,6 +15,7 @@ This codelab builds upon some of [Google's Codelabs][GCL]:
 - [Entity and Sentiment Analysis with the Natural Language API][GCL.NL]
 - [Create a Managed MySQL database with Cloud SQL][GCL.SQL]
 
+
 ## How to Use this Codelab
 
 This codelab may be followed along by cloning this repository, then following
@@ -39,13 +40,37 @@ Project.
 
 NOTE: This codelab might cost between $1 and $3 in compute resources.
 
+
 ## STEP 0: Getting Started with Google App Engine
 
 We will use [Google App Engine][GAE] to serve user requests, perform backend
 processing, and to host our static resources.
 
 Work through Google's [Getting Started with App Engine (Python)][GCL.GAE]
-codelab, then move on to [STEP 1](#STEP).
+codelab, then move on to [STEP 1](#step-1-getting-started-with-google-cloud-natural-language-api).
+
+
+## STEP 1: Getting Started with Google Cloud Natural Language API
+
+We will use [Google Cloud Natural Language API][CNL] to conduct sentiment
+analysis on entities we fetch from [Hacker News][HN]. In this step, we will
+introduce you to the basics of the APIs.
+
+Work through Google's [Entity and Sentiment Analysis with the Natural Language
+API][GCL.NL] codelab, then move on to [STEP 2](#step-2-getting-started-with-google-cloud-sql-mysql).
+
+
+## STEP 2: Getting Started with Google Cloud SQL MySQL
+
+We will use [Google Cloud SQL][CSQL] to store the results of our sentiment
+analysis.
+
+Work through Google's [Create a Managed MySQL database with Cloud SQL][GCL.SQL]
+codelab, then move on to [STEP 3](#step-3-putting-the-pieces-together).
+
+
+## STEP 3: Putting the Pieces Together
+
 
 
 [GAE]: https://cloud.google.com/appengine/
@@ -55,4 +80,5 @@ codelab, then move on to [STEP 1](#STEP).
 [GCL.GAE]: https://codelabs.developers.google.com/codelabs/cloud-app-engine-python/index.html
 [GCL.NL]: https://codelabs.developers.google.com/codelabs/cloud-nl-intro/index.html
 [GCL.SQL]: https://codelabs.developers.google.com/codelabs/cloud-create-cloud-sql-db/index.html
+[HN]: https://news.ycombinator.com/
 
