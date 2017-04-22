@@ -159,6 +159,14 @@ DSN = (
 
 You can find the variables in the SQL tab of cloud console.
 
+*NOTE:* If you would like to run this using `dev_appserver.py`, you need to
+install the MySQL Client Library:
+
+```py
+sudo apt-get install libmysqlclient-dev
+```
+
+
 ### F. Review SQL Usage
 
 You can review the usage of Cloud SQL in `src/api/highest_seen.py`. In this
