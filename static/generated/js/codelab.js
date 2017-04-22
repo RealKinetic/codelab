@@ -11715,7 +11715,7 @@ var _user$project$View$hackernews = function (model) {
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text('Looks at the average salience (importance of a word in the text) of a word in a hacker news item.'),
+			_0: _elm_lang$html$Html$text('Displays the average salience (importance of a word in the text) of a word in hacker news items.  These are the items loaded and analyzed using the rank page.'),
 			_1: {
 				ctor: '::',
 				_0: A2(
@@ -12053,7 +12053,7 @@ var _user$project$View$home = function (model) {
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text('Kicks off the process of loading a hacker news items (the latest) and analyzing it using Google\'s natural language processing.'),
+			_0: _elm_lang$html$Html$text('Kicks off the process of loading a hacker news items (the latest) and analyzing it using Google\'s natural language processing.  Displayed is the analyzed HN item id.'),
 			_1: {
 				ctor: '::',
 				_0: A2(
