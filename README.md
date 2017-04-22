@@ -30,7 +30,9 @@ the search box:
 
 ![Activate Google Cloud Shell](./docs/img/ActiveGoogleCloudShell.png)
 
-I recommend working through all Google Codelabs with the following settings:
+I recommend working through all exercises in the Google Codelabs, and I suggest
+selecting Novice. Your settings for each codelab should look something like
+this:
 
 ![Google Codelab Settings](./docs/img/CodelabSettings.png)
 
