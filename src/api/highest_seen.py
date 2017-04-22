@@ -41,7 +41,7 @@ def get_average():
     :return:
     """
     s = session()
-    h = s.query(Word.word, func.avg(Word.salience)).group_by(Word.word).all()
+    h = s.query(Word.word, func.avg(Word.salience)).group_by(Word.word).order_by(func.avg(Word.salience).desc()).all()
     s.commit()
 
     result = [{'word': res[0], 'average': res[1]} for res in h]
