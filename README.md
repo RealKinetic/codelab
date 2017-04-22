@@ -23,6 +23,13 @@ This codelab may be followed along by cloning this repository, then following
 this README. If you are struggling with a step, step-2 for example, you may
 checkout the branch named STEP-2.
 
+This codelab should be completed using the Google Cloud Shell. Cloud Shell is
+access from the Google Cloud Console, but clicking the button to the right of
+the search box:
+
+[Active Google Cloud Shell](./docs/img/ActiveGoogleCloudShell.png)
+
+
 ## Documentation
 
 ### BigQuery
