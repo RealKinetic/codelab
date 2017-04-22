@@ -164,7 +164,14 @@ You can find the variables in the SQL tab of cloud console.
 You can review the usage of Cloud SQL in `src/api/highest_seen.py`. In this
 project, we are using SQL Alchemy.
 
+### G. Try it Out
 
+If you now click `Get Rank`, a request to Hacker News will be made, then the NL
+API used to populate a table within Cloud SQL. You can view the data in Cloud
+SQL in the HackerNews Avg tab of the app.
+
+
+## General Notes
 
 ### Debugging
 
