@@ -106,6 +106,12 @@ We have included a helper to do this for you:
 $ make install
 ```
 
+You should also install the MySQL Client Library:
+
+```sh
+$ sudo apt-get install libmysqlclient-dev
+```
+
 ### B. Review app.yaml, and handler setup
 
 This app uses [Flask](http://flask.pocoo.org/), a simple Python framework.
@@ -159,12 +165,6 @@ DSN = (
 
 You can find the variables in the SQL tab of cloud console.
 
-*NOTE:* If you would like to run this using `dev_appserver.py`, you need to
-install the MySQL Client Library:
-
-```py
-sudo apt-get install libmysqlclient-dev
-```
 
 
 ### F. Review SQL Usage
