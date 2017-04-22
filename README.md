@@ -102,6 +102,13 @@ $ git clone https://github.com/RealKinetic/codelab.git
 $ cd codelab
 ```
 
+When deploying a Python app to App Engine, you should bundle your dependencies.
+We have included a helper to do this for you:
+
+```sh
+$ make install
+```
+
 ### B. Review app.yaml, and handler setup
 
 This app uses [Flask](http://flask.pocoo.org/), a simple Python framework.
