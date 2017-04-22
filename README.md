@@ -69,6 +69,9 @@ analysis.
 Work through Google's [Create a Managed MySQL database with Cloud SQL][GCL.SQL]
 codelab, then move on to [STEP 3](#step-3-putting-the-pieces-together).
 
+NOTE: Do not forget to enable the Cloud Natural Language API. To do this, under
+API Manager, goto Library, then find Cloud Natural Language and click it. Click
+enable.
 
 ## STEP 3: Putting the Pieces Together
 
