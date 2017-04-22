@@ -19,10 +19,7 @@ This codelab builds upon some of [Google's Codelabs][GCL]:
 ## How to Use this Codelab
 
 This codelab may be followed along by cloning this repository, then following
-this README. Once you are on [STEP
-3](#step-3-putting-the-pieces-together), if you are struggling with a sub-step,
-Step-3.A for example, checkout the branch named STEP-3A. It will contain the
-completed code.
+this README. 
 
 This codelab should be completed using the Google Cloud Shell. This is what all
 of the Google provided codelabs recommend using as well. Cloud Shell is
