@@ -25,10 +25,24 @@ This codelab may be followed along by cloning this repository, then following
 this README. If you are struggling with a step, step-2 for example, you may
 checkout the branch named STEP-2.
 
-This codelab should be completed using the Google Cloud Shell. Cloud Shell is
-access from the Google Cloud Console, but clicking the button to the right of
+This codelab should be completed using the Google Cloud Shell. This is what all
+of the Google provided codelabs recommend using as well. Cloud Shell is
+accessed from the Google Cloud Console, by clicking the button to the right of
 the search box:
 
 ![Activate Google Cloud Shell](./docs/img/ActiveGoogleCloudShell.png)
+
+I recommend working through all Google Codelabs with the following settings:
+
+![Google Codelab Settings](./docs/img/CodelabSettings.png)
+
+You may use an existing Cloud Project or create a new Cloud Project for use
+during this codelab. Please note, if you use Qwiklabs your project will be
+reset after each codelab - for this reason I recommend using your own Cloud
+Project.
+
+NOTE: This codelab might cost between $1 and $3 in compute resources.
+
+## Getting Started
 
 
