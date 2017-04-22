@@ -27,7 +27,7 @@ This codelab should be completed using the Google Cloud Shell. Cloud Shell is
 access from the Google Cloud Console, but clicking the button to the right of
 the search box:
 
-[Active Google Cloud Shell](./docs/img/ActiveGoogleCloudShell.png)
+[[./docs/img/ActiveGoogleCloudShell.png|alt=Activate Google Cloud Shell]]
 
 
 ## Documentation
