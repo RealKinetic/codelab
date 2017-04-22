@@ -134,6 +134,35 @@ in your browser. You should see the following:
 ![Initial Deployed App](./docs/img/FirstDeploy.png)
 
 
+### D. Implement Cloud Natural Language Call
+
+You will need to write the payload for analyze entities in
+`src/api/natural_language.py`, the content is in the `text` variable.
+
+```python
+    body = {
+        'document': {
+            'type': 'PLAIN_TEXT',
+            'content': text,
+        },
+        'encoding_type': encoding,
+    }
+```
+
+### E. Configure the SQL Connection
+
+Configure the connection to Cloud SQL in `src/config/envs/deployed.py`.
+
+```python
+DSN = (
+    'mysql+mysqldb://USER_NAME:PASSWORD@/DATABASE_NAME?unix_socket=/cloudsql/'
+    'PROJECT_ID:REGION:DATABASE_NAME'
+)
+```
+
+You can find the variables in the SQL tab of cloud console.
+
+
 ### Debugging
 
 To debug your deployed app, use the log viewer:
