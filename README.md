@@ -134,6 +134,13 @@ in your browser. You should see the following:
 ![Initial Deployed App](./docs/img/FirstDeploy.png)
 
 
+### Debugging
+
+To debug your deployed app, use the log viewer:
+
+![Log Viewer](./docs/img/LogViewer.png)
+
+
 ### Setup the DB.
 
 If you followed the [Google Cloud SQL][GCL.SQL] codelab, you can skip this
