@@ -102,6 +102,31 @@ $ git clone https://github.com/RealKinetic/codelab.git
 $ cd codelab
 ```
 
+### B. Review app.yaml, and handler setup
+
+This app uses [Flask](http://flask.pocoo.org/), a simple Python framework.
+
+Open app.yaml, note that we map a static route to `/` and that we use a
+"catch-all" route (`.*`) to handle all other requests.
+
+Our catch-all is mapped to `app` which is exposed from
+`src/handler/__init__.py`. Here, we map all of our endpoints to request
+handlers. Take a moment and review these handlers.
+
+### C. Deploy Your Application
+
+Deploy your application to App Engine:
+
+```sh
+gcloud app deploy app.yaml
+```
+
+Then verify that you can access it by viewing `http://<project-id>.appspot.com`
+in your browser. You should see the following:
+
+![Initial Deployed App](./docs/img/FirstDeploy.png)
+
+
 ### Setup the DB.
 
 If you followed the [Google Cloud SQL][GCL.SQL] codelab, you can skip this
