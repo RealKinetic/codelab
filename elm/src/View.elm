@@ -60,7 +60,7 @@ nav model =
 home : Model -> Html Msg
 home model =
     Html.div []
-        [ Html.text "Kicks off the process of loading a hacker news items (the latest) and analyzing it using Google's natural language processing."
+        [ Html.text "Kicks off the process of loading a hacker news items (the latest) and analyzing it using Google's natural language processing.  Displayed is the analyzed HN item id."
         , Html.br [] []
         , Html.button [ Html.Events.onClick GetRank ] [ Html.text "Get Rank" ]
         , Html.div [ class "panel panel-default" ]
@@ -127,7 +127,7 @@ mapToHackerNews row =
 hackernews : Model -> Html Msg
 hackernews model =
     Html.div []
-        [ Html.text "Looks at the average salience (importance of a word in the text) of a word in a hacker news item."
+        [ Html.text "Displays the average salience (importance of a word in the text) of a word in hacker news items.  These are the items loaded and analyzed using the rank page."
         , Html.br [] []
         , Html.button [ Html.Events.onClick GetHackerNews ] [ Html.text "Get HackerNews Ranks" ]
         , Html.div [ class "table table-bordered table-hover" ]
