@@ -159,6 +159,12 @@ DSN = (
 
 You can find the variables in the SQL tab of cloud console.
 
+### F. Review SQL Usage
+
+You can review the usage of Cloud SQL in `src/api/highest_seen.py`. In this
+project, we are using SQL Alchemy.
+
+
 
 ### Debugging
 
