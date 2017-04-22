@@ -60,7 +60,9 @@ nav model =
 home : Model -> Html Msg
 home model =
     Html.div []
-        [ Html.button [ Html.Events.onClick GetRank ] [ Html.text "Get Rank" ]
+        [ Html.text "Kicks off the process of loading a hacker news items (the latest) and analyzing it using Google's natural language processing."
+        , Html.br [] []
+        , Html.button [ Html.Events.onClick GetRank ] [ Html.text "Get Rank" ]
         , Html.div [ class "panel panel-default" ]
             [ Html.div [ class "panel-body" ]
                 [ Html.text (Basics.toString model.highestRank)
@@ -81,7 +83,9 @@ mapToRow row =
 mysql : Model -> Html Msg
 mysql model =
     Html.div []
-        [ Html.button [ Html.Events.onClick GetGithub ] [ Html.text "Get Github Results" ]
+        [ Html.text "Displays the repos and languages used in Google's sample bigquery dataset."
+        , Html.br [] []
+        , Html.button [ Html.Events.onClick GetGithub ] [ Html.text "Get Github Results" ]
         , Html.div [ class "table table-bordered table-hover" ]
             [ Html.thead [] [ Html.tr [] [Html.th [] [Html.text "repo"], Html.th [] [Html.text "language"], Html.th [] [Html.text "bytes"] ] ]
             , Html.tbody []
@@ -101,7 +105,9 @@ mapToAggregated row =
 aggregated : Model -> Html Msg
 aggregated model =
     Html.div []
-        [ Html.button [ Html.Events.onClick GetAggregated ] [ Html.text "Get Github Aggregated Results" ]
+        [ Html.text "Displays language popularity of various repos in Google's sample dataset measured in bytes of code."
+        , Html.br [] []
+        , Html.button [ Html.Events.onClick GetAggregated ] [ Html.text "Get Github Aggregated Results" ]
         , Html.div [ class "table table-bordered table-hover" ]
             [ Html.thead [] [ Html.tr [] [Html.th [] [Html.text "language"], Html.th [] [Html.text "total bytes"] ] ]
             , Html.tbody []
@@ -121,7 +127,9 @@ mapToHackerNews row =
 hackernews : Model -> Html Msg
 hackernews model =
     Html.div []
-        [ Html.button [ Html.Events.onClick GetHackerNews ] [ Html.text "Get HackerNews Ranks" ]
+        [ Html.text "Looks at the average salience (importance of a word in the text) of a word in a hacker news item."
+        , Html.br [] []
+        , Html.button [ Html.Events.onClick GetHackerNews ] [ Html.text "Get HackerNews Ranks" ]
         , Html.div [ class "table table-bordered table-hover" ]
             [ Html.thead [] [ Html.tr [] [Html.th [] [Html.text "word"], Html.th [] [Html.text "average"] ] ]
             , Html.tbody []
