@@ -85,6 +85,21 @@ codelab, then move on to [STEP 3](#step-3-putting-the-pieces-together).
 
 ## STEP 3: Putting the Pieces Together
 
+In this step, we will build on the prior steps and integrate App Engine, SQL,
+and Natural Language API.
+
+All steps are meant to be run within the Cloud Shell you used in the prior
+steps.
+
+### Clone the Codelab Repo
+
+Clone the codelab repo - where you are reading this.
+
+```sh
+$ mkdir code && cd code
+$ git clone https://github.com/RealKinetic/codelab.git
+$ cd codelab
+```
 
 ### Setup the DB.
 
