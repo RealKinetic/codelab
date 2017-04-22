@@ -5,19 +5,15 @@ Google Code Lab
 
 In this codelab, we will be building an application that combines several GCP
 services to build a fully functioning application. The application we will
-build utilizes Google App Engine for our user traffic and backend processing
-tasks, Google Cloud SQL for storage, and Google Cloud NL for sentiment
-analysis.
+build utilizes [Google App Engine][GAE] for our user traffic and backend
+processing tasks, [Google Cloud SQL][CSQL] for storage, and [Google Cloud
+NL][CNL] for sentiment analysis.
 
-This codelab builds upon some of [Google's
-Codelabs](https://codelabs.developers.google.com/cloud?cat=Cloud):
+This codelab builds upon some of [Google's Codelabs][GCL]:
 
-- [Getting Started with App Engine
-  (Python)](https://codelabs.developers.google.com/codelabs/cloud-app-engine-python/index.html)
-- [Entity and Sentiment Analysis with the Natural Language
-  API](https://codelabs.developers.google.com/codelabs/cloud-nl-intro/index.html)
-- [Create a Managed MySQL database with Cloud
-  SQL](https://codelabs.developers.google.com/codelabs/cloud-create-cloud-sql-db/index.html)
+- [Getting Started with App Engine (Python)][GCL.GAE]
+- [Entity and Sentiment Analysis with the Natural Language API][GCL.NL]
+- [Create a Managed MySQL database with Cloud SQL][GCL.SQL]
 
 ## How to Use this Codelab
 
@@ -43,6 +39,20 @@ Project.
 
 NOTE: This codelab might cost between $1 and $3 in compute resources.
 
-## Getting Started
+## STEP 0: Getting Started with Google App Engine
 
+We will use [Google App Engine][GAE] to serve user requests, perform backend
+processing, and to host our static resources.
+
+Work through Google's [Getting Started with App Engine (Python)][GCL.GAE]
+codelab, then move on to [STEP 1](#STEP).
+
+
+[GAE]: https://cloud.google.com/appengine/
+[CSQL]: https://cloud.google.com/sql/docs/mysql/
+[CNL]: https://cloud.google.com/natural-language/
+[GCL]: https://codelabs.developers.google.com/cloud?cat=Cloud
+[GCL.GAE]: https://codelabs.developers.google.com/codelabs/cloud-app-engine-python/index.html
+[GCL.NL]: https://codelabs.developers.google.com/codelabs/cloud-nl-intro/index.html
+[GCL.SQL]: https://codelabs.developers.google.com/codelabs/cloud-create-cloud-sql-db/index.html
 
