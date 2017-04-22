@@ -19,9 +19,10 @@ This codelab builds upon some of [Google's Codelabs][GCL]:
 ## How to Use this Codelab
 
 This codelab may be followed along by cloning this repository, then following
-this README. Once you are past [STEP
-2](#step-2-getting-started-with-google-cloud-sql-mysql), if you are struggling
-with a step, step-3 for example, you may checkout the branch named STEP-3.
+this README. Once you are on [STEP
+3](#step-3-putting-the-pieces-together), if you are struggling with a sub-step,
+Step-3.A for example, checkout the branch named STEP-3A. It will contain the
+completed code.
 
 This codelab should be completed using the Google Cloud Shell. This is what all
 of the Google provided codelabs recommend using as well. Cloud Shell is
@@ -91,7 +92,7 @@ and Natural Language API.
 All steps are meant to be run within the Cloud Shell you used in the prior
 steps.
 
-### Clone the Codelab Repo
+### A. Clone the Codelab Repo
 
 Clone the codelab repo - where you are reading this.
 
