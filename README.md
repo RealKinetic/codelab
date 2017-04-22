@@ -130,3 +130,19 @@ $ make run
 ```sh
 $ gcloud app deploy app.yaml
 ```
+
+## Help
+
+If you run into issues running the natural language api locally due to errors like the following:
+```sh
+Encountered 403 Forbidden with reason "forbidden"
+rank exception: <HttpError 403 when requesting https://language.googleapis.com/v1/documents:analyzeEntities?alt=json returned "Google Cloud Natural Language API has not been used in project google.com:cloudsdktool before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/language.googleapis.com/overview?project=google.com:cloudsdktool then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.">
+```
+
+You'll need to do two things:
+```sh
+$ gcloud config set project <your-project-id>
+$ gcloud auth application-default login
+```
+
+This will force you to authenticate using the sdk and should work locally.
