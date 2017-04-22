@@ -178,6 +178,10 @@ If you now click `Get Rank`, a request to Hacker News will be made, then the NL
 API used to populate a table within Cloud SQL. You can view the data in Cloud
 SQL in the HackerNews Avg tab of the app.
 
+If everything went correctly, you should see some results:
+
+![Results](./docs/img/QueryResults.png)
+
 
 ## General Notes
 
