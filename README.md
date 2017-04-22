@@ -77,7 +77,28 @@ codelab, then move on to [STEP 3](#step-3-putting-the-pieces-together).
 
 *NOTE:* Select Second Generation when creating your instance.
 
+*NOTE:* When creating your instance, be sure to set a root password.
+
+*NOTE:* Do NOT delete your instance yet, we will use it in [STEP
+3](#step-3-putting-the-pieces-together).
+
+
 ## STEP 3: Putting the Pieces Together
+
+
+### Setup the DB.
+
+If you followed the [Google Cloud SQL][GCL.SQL] codelab, you can skip this
+step.
+
+You will need to create a MySQL Database named `codelab`.
+
+```sh
+$ mysql -u root -p
+```
+```SQL
+> CREATE DATABASE codelab;
+```
 
 
 
