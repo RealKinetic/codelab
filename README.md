@@ -27,7 +27,7 @@ This codelab should be completed using the Google Cloud Shell. Cloud Shell is
 access from the Google Cloud Console, but clicking the button to the right of
 the search box:
 
-[[https://github.com/RealKinetic/codelab/blob/master/docs/img/ActiveGoogleCloudShell.png|alt=Activate Google Cloud Shell]]
+![Activate Google Cloud Shell](./docs/img/ActiveGoogleCloudShell.png)
 
 
 ## Documentation
